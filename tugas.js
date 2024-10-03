@@ -20,7 +20,7 @@ const kalkulator = () => {
             readline.question("Masukkan angka kedua yang bukan nol: ")
           );
         }
-        return angkaPertama / angkaKedua;
+        return {hasil: angkaPertama / angkaKedua, angkaKedua};
       case "%":
         return angkaPertama % angkaKedua;
       default:
@@ -71,7 +71,14 @@ const kalkulator = () => {
       console.log("Input harus berupa angka!");
     } else {
       const result = hitung(angkaPertama, operator, angkaKedua);
-      if (result !== null) {
+      if(typeof(result) === "object") {
+        angkaKedua = result.angkaKedua;
+        console.log(
+            `Hasil dari ${angkaPertama} ${operator} ${angkaKedua} adalah ${result.hasil}`
+          );
+          hasilSebelumnya = result.hasil; // Simpan hasil untuk kalkulasi selanjutnya
+          riwayat.push(`${angkaPertama} ${operator} ${angkaKedua} = ${result.hasil}`); // Simpan ke riwayat
+      } else if (result !== null) {
         console.log(
           `Hasil dari ${angkaPertama} ${operator} ${angkaKedua} adalah ${result}`
         );
